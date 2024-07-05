@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
-class User extends ActiveRecord
+class News extends ActiveRecord
 {
      public static function tableName()
     {

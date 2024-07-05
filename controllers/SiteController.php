@@ -136,4 +136,16 @@ class SiteController extends Controller
     {
         return $this->render('friends');
     }
+
+    public function actionUser()
+    {
+        $users = Yii::$app->db->createCommand('SELECT * FROM users')->queryAll();
+        foreach ($users as $user) {
+            echo $user['id'] . ': ' . $user['username'] . '<br>';
+        }
+        return 1;
+    }
+    public function actionPhpinfo(){
+        phpinfo();
+    }
 }
