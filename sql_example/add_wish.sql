@@ -1,0 +1,9 @@
+CALL "add_wish"(
+	5,
+	'Дмитрий'::TEXT,
+	'П'::TEXT,
+	'Электроника'::TEXT,
+	555::INTEGER,
+	'/img_db/'::TEXT,
+	'https://market.yandex.ru/product--skx007j1/652474393?hid=91259&show-uid=17200209995801947551616003&from=search&text=seiko%20skx007&rs=eJxVjTFOwzAYhe2SIhOB5DEqA1anbrGdpInXLkhMFRewnB9LMQ1JVKcCdWKF03AFpApxDZjYQKwsRGVi-aT39J4-WU7Pw2Nv3aplfnXHeU5f3t8OpgFBdLwn-uMMXf-bbQ9FlohE3OOf1_EjHhG0xNuADOEJow-MvzEhKEJsKBYuFCEhmOIIM0xHkzPojPZV22nXwKbXt66vNHQ32ve2AVezwRbK_YVEJyygdHJaGu9Ag1m3G29r3dXGNdpbs4aK7b6OZs-fD4PggoAQFsq8vJQil5xLrlShEhWbNIVSXRWQAsy5lJLb1GSqyJQAPuc8FrH4BbICR48%2C&sku=100873533453&cpa=1&do-waremd5=lLEWnxzUG7QQ_q-SSKHg5Q&cpc=Q7szBXVIudeq1zPkbXyVwy6uG_HQv6EU_WO44HFAq94fO3jy8k1cZiZkUary8HJkwyZQNfy_I5_Zb9pc3ES-6TTZLjcgsY6xjldXXgu_mbedwAyfVW4WtedNLXJ6vvIjhjgaiOTwlvvlOi57dUMHr1IdP-dB0z08-Jf26OLROgUjKTzvCbzQjyi6zoud9-i11y-MW2zOMVR6dcvmuN_jurhuuEy5-AJL30a3rqfA0su6N7Y6WDHnJIokQbkXEZB5OQAtpYRlOuavmhoSqclvhgv_R3EairI3&cc=CjIxNzIwMDIwOTk4OTM5L2E0NGNiOWQ4YzRjYzYwMjIyMGU0YTU5ODU5MWMwNjAwLzEvMRDnAYB95u0G&uniqueId=689921'::TEXT
+);
