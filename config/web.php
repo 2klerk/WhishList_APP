@@ -12,10 +12,14 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        'jwt' => [
+            'class' => 'app\components\JwtHelper',
+            'key' => 'your-secret-key', // замените на ваш секретный ключ
+        ],
         'request' => [
             'parsers' => [
-            'application/json' => 'yii\web\JsonParser',
-        ],
+                'application/json' => 'yii\web\JsonParser',
+            ],
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'kZlQje27j-rwUxgjflFp2dNMvoO6GN0V',
         ],
@@ -53,9 +57,17 @@ $config = [
                 'phpinfo' => 'site/phpinfo',
                 'friends' => 'site/friends',
                 'cabinet' => 'site/cabinet',
+                'entry' => 'site/entry',
+                'reg' => 'site/reg',
+                    'POST login' => 'auth/login',
+                    'POST signup' => 'auth/signup',
+                    'GET profile' => 'auth/profile',
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'news'],
             ],
         ]
+    ],
+    'controllerMap' => [
+        'user' => 'app\controllers\UserController',
     ],
     'params' => $params,
 ];

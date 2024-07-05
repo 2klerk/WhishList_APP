@@ -44,7 +44,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Cabinet', 'url' => ['/cabinet']],
             ['label' => 'WishList', 'url' => ['/wishlist']],
             ['label' => 'Friends', 'url' => ['/friends']],
-            ['label' => 'PhpInfo', 'url' => ['/phpinfo']],
+            ['label' => 'reg', 'url' => ['/reg']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
@@ -54,7 +54,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         ['class' => 'nav-link btn btn-link logout']
                     )
                     . Html::endForm()
-                    . '</li>'
+                    . '</li>',
+
+            // Добавляем ссылку на создание пользователя
+            ['label' => 'Create User', 'url' => ['/user/create'], 'visible' => Yii::$app->user->can('admin')],
         ]
     ]);
     NavBar::end();
