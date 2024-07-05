@@ -2,17 +2,16 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 class User extends ActiveRecord
 {
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'users'; // Название таблицы в базе данных
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['name', 'surname', 'email', 'password'], 'required'],
@@ -21,7 +20,7 @@ class User extends ActiveRecord
         ];
     }
 
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'name' => 'Name',
