@@ -18,7 +18,7 @@ services:
       POSTGRES_DB: wishlist
     volumes:
 #      - ./data/init.tar:/docker-entrypoint-initdb.d/init.tar
-      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data/init2.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5434:5432"
 
