@@ -12,10 +12,13 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
-        'jwt' => [
-            'class' => 'app\components\JwtHelper',
-            'key' => 'your-secret-key', // замените на ваш секретный ключ
-        ],
+//        'jwt' => [
+//            'class' => 'app\components\JwtHelper',
+//            'key' => 'your-secret-key', // замените на ваш секретный ключ
+//        ],
+//        'security' => [
+//            'passwordHashStrategy' => 'password_hash',
+//        ],
         'request' => [
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
@@ -44,7 +47,9 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning', 'trace', 'info'],
+                    'logVars' => [],
+                    'logFile' => '@runtime/webapp/logs/myfile.log',
                 ],
             ],
         ],
@@ -59,9 +64,9 @@ $config = [
                 'cabinet' => 'site/cabinet',
                 'entry' => 'site/entry',
                 'reg' => 'site/reg',
-                    'POST login' => 'auth/login',
-                    'POST signup' => 'auth/signup',
-                    'GET profile' => 'auth/profile',
+                'POST login' => 'auth/login',
+                'POST signup' => 'auth/signup',
+                'GET profile' => 'auth/profile',
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'news'],
             ],
         ]

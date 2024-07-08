@@ -14,12 +14,8 @@ class UserController extends Controller
         $username = Yii::$app->request->post('username');
         $email = Yii::$app->request->post('email');
         $password = Yii::$app->request->post('password');
-
-        // Вызываем метод модели для создания пользователя
         User::createUser($username, $email, $password);
 
-        return $this->redirect(['site/index']); // замените на нужный адрес
+        return $this->redirect(['site/index']);
     }
-
-    // Дополнительные действия могут быть добавлены здесь, если необходимо
 }

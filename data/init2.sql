@@ -44,7 +44,7 @@ CREATE PROCEDURE public.add_user(p_name text, p_surname text, p_email text, p_pa
                 p_name,
                 p_surname,
                 p_email,
-                crypt(p_password, gen_salt('md5')),
+                p_password,
                 CURRENT_TIMESTAMP
             );
             RAISE NOTICE 'Пользователь успешно добавлен';

@@ -24,12 +24,20 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout'],
+                'only' => ['logout', 'login', 'reg', 'friends', 'wishlist', 'cabinet'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'cabinet', 'friends', 'wishlist'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'denyCallback' => function ($rule, $action) {
+                            throw new \Exception('У вас нет доступа к этой странице');
+                        }
+                    ],
+                    [
+                        'actions' => ['reg', 'login'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -40,6 +48,7 @@ class SiteController extends Controller
                 ],
             ],
         ];
+
     }
 
     /**
@@ -160,11 +169,11 @@ class SiteController extends Controller
             $command->bindValue(':name', $model->name);
             $command->bindValue(':surname', $model->surname);
             $command->bindValue(':email', $model->email);
-            $command->bindValue(':password', $model->password);
+            $command->bindValue(':password', Yii::$app->getSecurity()->generatePasswordHash($model->password));
 
             try {
                 $command->execute();
-                Yii::$app->session->setFlash('success', 'Пользователь успешно зарегистрирован. ('.$model->name.' '.$model->surname.')');
+                Yii::$app->session->setFlash('success', 'Пользователь успешно зарегистрирован. (' . $model->name . ' ' . $model->surname . ')');
                 return $this->redirect(['site/login']);
             } catch (\Exception $e) {
                 Yii::error('Ошибка при создании пользователя: ' . $e->getMessage());
