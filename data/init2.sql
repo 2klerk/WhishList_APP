@@ -29,21 +29,6 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
-
---
--- Name: pldbgapi; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pldbgapi WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pldbgapi; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION pldbgapi IS 'server-side support for debugging PL/pgSQL functions';
-
-
 --
 -- Name: add_user(text, text, text, text); Type: PROCEDURE; Schema: public; Owner: postgres
 --
