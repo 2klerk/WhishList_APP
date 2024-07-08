@@ -118,7 +118,14 @@ class SiteController extends Controller
      */
     public function actionCabinet()
     {
-        return $this->render('cabinet');
+        $user = Yii::$app->user->identity;
+        if ($user) {
+            return $this->render('cabinet', [
+                'user' => $user,
+            ]);
+        } else {
+            return $this->redirect(['site/login']);
+        }
     }
 
     public function actionFriends()
