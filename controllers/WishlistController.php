@@ -10,15 +10,25 @@ use app\models\WishlistForm;
 class WishlistController extends Controller {
     public function actionCreateWish() {
         if (Yii::$app->user->identity) {
+            $userId = Yii::$app->request->get('userId', null);
             $wish = new WishlistForm();
             if ($wish->load(Yii::$app->request->post()) && $wish->validate()) {
-                Yii::$app->db->createCommand()->insert('wishlist', [
-                    'name' => $wish->name,
-                    'price' => $wish->price,
-                    'url' => $wish->url,
-                    'img_path' => $wish->img_path,
-                    'category' => $wish->category,
-                ])->execute();
+                // Yii::$app->db->createCommand()->insert('wishlist', [
+                //     'name' => $wish->name,
+                //     'price' => $wish->price,
+                //     'url' => $wish->url,
+                //     'img_path' => $wish->img_path,
+                //     'category' => $wish->category,
+                // ])->execute();
+                Yii::$app->db->createCommand('CALL add_wish(:userid, :name, :surname, :category, :price, :img_path, :url)')
+                    ->bindValue(':userid', $userId)
+                    ->bindValue(':name', $wish->name)
+                    ->bindValue(':surname', "123")
+                    ->bindValue(':category', $wish->category)
+                    ->bindValue(':price', (int) $wish->price)
+                    ->bindValue(':img_path', $wish->img_path)
+                    ->bindValue(':url', $wish->url)
+                    ->execute();
                 return $this->render('create-wish', ['wish' => $wish]);
             } else {
                 return $this->render('create-wish', ['wish' => $wish]);
@@ -79,7 +89,7 @@ class WishlistController extends Controller {
     }
 
     // Метод для возврата пользовательской ошибки
-    public function actionMyError($message) {
+    public function actionMyError($message = 'sa') {
         return $this->render('my-error', ['message' => $message]);
     }
 }

@@ -169,7 +169,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.wishlist (
-    wishid integer NOT NULL,
+    wishid SERIAL NOT NULL,
     userid integer NOT NULL,
     name text NOT NULL,
     surname text,

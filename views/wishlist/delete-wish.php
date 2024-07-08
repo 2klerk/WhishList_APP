@@ -1,4 +1,4 @@
 <?php
 use yii\helpers\Html;
 ?>
-<?= Html::encode($wishid); ?>
+<p>Была удалена запись №<?= Html::encode($wishid); ?></p>

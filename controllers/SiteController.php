@@ -176,7 +176,8 @@ class SiteController extends Controller
             $command->bindValue(':name', $model->name);
             $command->bindValue(':surname', $model->surname);
             $command->bindValue(':email', $model->email);
-            $command->bindValue(':password', Yii::$app->getSecurity()->generatePasswordHash($model->password));
+            // $command->bindValue(':password', Yii::$app->getSecurity()->generatePasswordHash($model->password));
+            $command->bindValue(':password', $model->password);
 
             try {
                 $command->execute();

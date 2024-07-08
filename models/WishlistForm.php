@@ -12,7 +12,7 @@ class WishlistForm extends Model {
 
     public function rules() {
         return [
-            [['name', 'price', 'img_path', 'url'], 'required'],
+            [['name', 'price', 'img_path', 'url', 'category',], 'required'],
             ['url', 'url'],
         ];
     }
