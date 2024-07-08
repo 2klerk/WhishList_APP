@@ -58,7 +58,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'wishlist' => 'site/wishlist',
+                'get-wishlist' => 'wishlist/get-wishlist',
                 'phpinfo' => 'site/phpinfo',
                 'friends' => 'site/friends',
                 'cabinet' => 'site/cabinet',
@@ -73,6 +73,7 @@ $config = [
     ],
     'controllerMap' => [
         'user' => 'app\controllers\UserController',
+        'wishlist' => 'app\controllers\WishlistController',
     ],
     'params' => $params,
 ];
