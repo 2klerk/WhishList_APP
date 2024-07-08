@@ -7,7 +7,16 @@ use yii\web\Controller;
 use app\models\Wishlist;
 use app\models\WishlistForm;
 
+/**
+ * Класс контроллер для таблицы wishlist БД.
+ */
 class WishlistController extends Controller {
+    /**
+     * Действие по созданию и добавлению элемента в таблицу wishlist БД.
+     * Если пользователь не авторизован, будет вызвано действие my-error.
+     * 
+     * @return string
+     */
     public function actionCreateWish() {
         if (Yii::$app->user->identity) {
             $userId = Yii::$app->request->get('userId', null);
@@ -28,29 +37,44 @@ class WishlistController extends Controller {
                     ->bindValue(':price', (int) $wish->price)
                     ->bindValue(':img_path', $wish->img_path)
                     ->bindValue(':url', $wish->url)
-                    ->execute();
+                    ->execute()
+                ;
+
                 return $this->render('create-wish', ['wish' => $wish]);
             } else {
+
                 return $this->render('create-wish', ['wish' => $wish]);
             }
         } else {
-            $this->actionMyError('Чтобы создать хотелку, авторизуйтесь!');
+            $this->actionMyError('Чтобы добавить подарок, авторизуйтесь!');
         }
     }
 
+    /**
+     * Метод получения всех элементов из таблицы wishlist БД.
+     * 
+     * @return string
+     */
     public function actionGetWishlist() {
         $userId = Yii::$app->request->get('userId', null);
         if ($userId === null) {
             throw new \yii\web\BadRequestHttpException('Missing required parameters: userId');
         }
 
-        // Выполнение запроса к базе данных
         $wishlist = Yii::$app->db->createCommand('SELECT get_wishlist(:userId)')
                                 ->bindValue(':userId', (int) $userId)
-                                ->queryAll();
+                                ->queryAll()
+        ;
+
         return $this->render('get-wishlist', ['wishlist' => $wishlist]);
     }
 
+    /**
+     * Метод редактирования существующего элемента таблицы wishlist БД.
+     * Редактируемый элемент определяется в URL
+     * 
+     * @return string
+     */
     public function actionUpdateWish() {
         if (Yii::$app->user->identity) {
             $wishid = Yii::$app->request->get('wishid', null);
@@ -65,31 +89,48 @@ class WishlistController extends Controller {
                         'category' => $wish->category,
                     ],'wishid=:wishid')
                     ->bindValue(':wishid', $wishid)
-                    ->execute();
+                    ->execute()
+                ;
+
                 return $this->render('update-wish', ['wish' => $wish]);
             } else {
+
                 return $this->render('update-wish', ['wish' => $wish]);
             }
         } else {
-            $this->actionMyError('Чтобы редактировать хотелку, авторизуйтесь!');
+            $this->actionMyError('Чтобы редактировать подарок, авторизуйтесь!');
         }
     }
 
+    /**
+     * Метод удаления элемента таблицы wishlist БД.
+     * Удаляемый элемент определяется в URL
+     * 
+     * @return string
+     */
     public function actionDeleteWish() {
         if (Yii::$app->user->identity) {
             $wishid = Yii::$app->request->get('wishid', null);
             Yii::$app->db->createCommand()
             ->delete('wishlist', 'wishid=:wishid')
             ->bindValue(':wishid', $wishid)
-            ->execute();
+            ->execute()
+        ;
+
             return $this->render('delete-wish', ['wishid' =>$wishid]);
         } else {
-            $this->actionMyError('Чтобы удалить хотелку, авторизуйтесь');
+            $this->actionMyError('Чтобы удалить подарок, авторизуйтесь');
         }
     }
 
-    // Метод для возврата пользовательской ошибки
-    public function actionMyError($message = 'sa') {
+    /**
+     * Метод вывода пользовательской ошибки.
+     * 
+     * @param string $message   Сообщение, которое передаётся в действие my-error и будет выведено пользователю
+     * 
+     * @return string
+     */
+    public function actionMyError($message = '') {
         return $this->render('my-error', ['message' => $message]);
     }
 }
