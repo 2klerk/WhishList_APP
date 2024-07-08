@@ -20,6 +20,5 @@ class UserController extends Controller
 
         return $this->redirect(['site/index']); // замените на нужный адрес
     }
-
     // Дополнительные действия могут быть добавлены здесь, если необходимо
 }
