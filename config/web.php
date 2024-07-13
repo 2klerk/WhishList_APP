@@ -12,10 +12,17 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+//        'jwt' => [
+//            'class' => 'app\components\JwtHelper',
+//            'key' => 'your-secret-key', // замените на ваш секретный ключ
+//        ],
+//        'security' => [
+//            'passwordHashStrategy' => 'password_hash',
+//        ],
         'request' => [
             'parsers' => [
-            'application/json' => 'yii\web\JsonParser',
-        ],
+                'application/json' => 'yii\web\JsonParser',
+            ],
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'kZlQje27j-rwUxgjflFp2dNMvoO6GN0V',
         ],
@@ -40,7 +47,9 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning', 'trace', 'info'],
+                    'logVars' => [],
+                    'logFile' => '@runtime/webapp/logs/myfile.log',
                 ],
             ],
         ],
@@ -49,13 +58,26 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'wishlist' => 'site/wishlist',
+                'get-wishlist' => 'wishlist/get-wishlist',
+                'update-wishlist' => 'wishlist/update-wishlist',
+                'create-wish' => 'wishlist/create-wish',
+                'delete-wish' => 'wishlist/delete-wish',
+                'my-error' => 'wishlist/my-error',
                 'phpinfo' => 'site/phpinfo',
                 'friends' => 'site/friends',
                 'cabinet' => 'site/cabinet',
+                'entry' => 'site/entry',
+                'reg' => 'site/reg',
+                'POST login' => 'auth/login',
+                'POST signup' => 'auth/signup',
+                'GET profile' => 'auth/profile',
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'news'],
             ],
         ]
+    ],
+    'controllerMap' => [
+        'user' => 'app\controllers\UserController',
+        'wishlist' => 'app\controllers\WishlistController',
     ],
     'params' => $params,
 ];
