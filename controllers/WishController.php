@@ -35,14 +35,12 @@ class WishController extends Controller
         $data = Yii::$app->request->post();
 //        $data['userid'] = Yii::$app->user->id;
         Yii::info("print-json: " . json_encode($data), __METHOD__);
-
         $wish = new $this->modelClass();
         $wish->userid = $data['userid'];
         $wish->name = $data['name'] ?? null;
         $wish->price = $data['price'] ?? null;
         $wish->img_path = $data['img_path'] ?? null;
         $wish->url = $data['url'] ?? null;
-
         if ($wish->save()) {
             return $wish;
         } else {
@@ -54,19 +52,38 @@ class WishController extends Controller
 
     public function actionCreateWish()
     {
-        $model = new Wish();
-        $data = Yii::$app->request->post();
+//        Yii::$app->response->format = Response::FORMAT_JSON;
+        try {
+            $data = Yii::$app->request->post()["Wish"];
+            if (!$data) {
+                throw new \Exception('No data received');
+            }
+            $data['userid'] = Yii::$app->user->id;
 
-        if ($data->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::info('Успешное создание желания');
-            return $this->asJson([
-                'success' => true,
-                'wishes' => Wish::find()->where(['userid' => Yii::$app->user->id])->all(),
-            ]);
+            Yii::info("Received data: " . json_encode($data), __METHOD__);
+
+            $wish = new $this->modelClass();
+            $wish->userid = $data['userid'];
+            $wish->name = $data['name'] ?? null;
+            $wish->price = intval($data['price']) ?? null;
+            $wish->img_path = $data['img_path'] ?? null;
+            $wish->url = $data['url'] ?? null;
+
+            if ($wish->save()) {
+                return ['success' => true, 'wish' => $wish];
+            } else {
+                Yii::error($wish->getErrors(), __METHOD__);
+                return ['success' => false, 'message' => 'Failed to create the wish for unknown reasons.', 'errors' => $wish->getErrors()];
+            }
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            return ['success' => false, 'message' => $e->getMessage()];
         }
     }
 
-    public function actionUpdate($id)
+
+    public
+    function actionUpdate($id)
     {
         $wish = Wish::findOne($id);
         if ($wish === null || $wish->userid !== Yii::$app->user->id) {
@@ -74,7 +91,7 @@ class WishController extends Controller
         }
 
         if ($wish->load(Yii::$app->request->post()) && $wish->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['get-wish']);
         }
 
         return $this->render('update', [
@@ -82,13 +99,14 @@ class WishController extends Controller
         ]);
     }
 
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
         $wish = Wish::findOne($id);
         if ($wish !== null && $wish->userid === Yii::$app->user->id) {
             $wish->delete();
         }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['get-wish']);
     }
 }
