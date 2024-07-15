@@ -43,9 +43,6 @@ class ProfileController extends Controller
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        // Действие доступно только аутентифицированным пользователям
-        // JWT токен уже проверен в фильтре
-
         return ['message' => 'This is a protected profile data'];
     }
 }

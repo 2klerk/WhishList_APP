@@ -71,13 +71,16 @@ $config = [
                 'POST login' => 'auth/login',
                 'POST signup' => 'auth/signup',
                 'GET profile' => 'auth/profile',
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'news'],
+                'GET wish' => 'wish/get-wish',
+                'POST wish' => 'wish/add-wish',
+                'POST wish' => 'wish/create-wish',
             ],
         ]
     ],
     'controllerMap' => [
         'user' => 'app\controllers\UserController',
         'wishlist' => 'app\controllers\WishlistController',
+        'wish' => 'app\controllers\WishController',
     ],
     'params' => $params,
 ];
